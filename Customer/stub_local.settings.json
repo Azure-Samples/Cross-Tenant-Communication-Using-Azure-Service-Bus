@@ -1,0 +1,15 @@
+{
+    "IsEncrypted": false,
+    "Values": {
+        "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+        "ServiceBusConnection__fullyQualifiedNamespace": "<PLACEHOLDER>", // Found in the Customer's service bus namespace
+        "FUNCTIONS_WORKER_RUNTIME": "dotnet", 
+        "DeploymentCommandQueueName": "<PLACEHOLDER>", // The queue in the customer service bus to which the provider can write messages
+        "DeploymentStatusQueueName": "<PLACEHOLDER>", // The queue in the customer service bus where the customer can write a deployment message to be polled by the provider
+
+        // The following AZURE_* variable is required to correctly set the tenant context
+        // when running locally. Specify the Customer tenant Id. When deploying the code 
+        // to Azure, these do not need to be set, as a managed identity will be recognized and used.
+        "AZURE_TENANT_ID": ""
+    }
+}
