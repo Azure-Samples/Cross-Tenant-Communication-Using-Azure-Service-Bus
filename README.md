@@ -46,7 +46,7 @@ We first need to create a Service Principal in the Provider's tenant and provisi
 
 1. Navigate to Azure AD click "New Registration".
 1. Enter the name for the service principal and choose "Accounts in any organization (Any Azure AD directory - Multitenant)".
-1. Add - Web - "https://localhost:4000" as the redirect URI.
+1. Add - Web - "https://microsoft.com" as the redirect URI.
 1. Register and take note of the application id as well as the client id.
 
 ### Create a New Client Secret
@@ -74,9 +74,10 @@ This timer triggered function is used to poll the deployment status queue from w
 
 ### Provision the SP from the Provider's Tenant to the Customer's Tenant
 
-1. Use the following URL, with client_id replaced with your own client_id: https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=8ae2f824-201f-4ec9-9d9f-ad37082a1935&response_type=code&redirect_uri=https%3A%2F%2Flocalhost:4000&response_mode=query&scope=https%3A%2F%2Fgraph.microsoft.com%2F.default&state=12345
-1. Sign into the tenant with customer login information *Note this will eventually redirect to a "refused to connect" page - this still has the desired effect of provisioning the identity into the Customer tenant*.
-1. Verify the identity within the Customer Azure AD and navigate to "Enterprise Applications" to witness the newly provisioned identity.
+1. Visit the following URL with the client_id query string parameter replaced with your own client_id: https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=8ae2f824-201f-4ec9-9d9f-ad37082a1935&response_type=code&redirect_uri=https%3A%2F%2Fmicrosoft.com&response_mode=query&scope=https%3A%2F%2Fgraph.microsoft.com%2F.default&state=12345
+1. Sign in with an account from the Customer's tenant.
+1. You will now see a consent screen. Click Accept to provision the Provider's application in the Customer tenant. *Note this will eventually redirect to microsoft.com -- this still has the desired effect of provisioning the identity into the Customer tenant*.
+1. Verify the identity within the Customer's Azure AD by navigating to "Enterprise Applications" to witness the newly provisioned service principal.
 
 ### Set up RBAC for the Provisioned Service Principal
 
@@ -117,7 +118,7 @@ Your app should appear in a list below the input fields. If you don't see it, yo
 
 Each subdirectory contains a stubbed version of the local.settings.json files which can be modified to run the Azure functions locally. To configure settings in Azure, update the Application Settings.
 
-*Note* The AzureDefaultCredential enumerates through multiple settings before hitting the Azure CLI credential! This is why we recommend doing an az login -t <tenant ID> to grant the correct credential when doing local Functions development. More can be read here: https://github.com/Azure/azure-sdk-for-net/issues/30961
+*Note* The DefaultAzureCredential enumerates through multiple settings before hitting the Azure CLI credential! This is why we recommend doing an az login -t <tenant ID> to grant the correct credential when doing local Functions development. More can be read here: https://github.com/Azure/azure-sdk-for-net/issues/30961
 
 ## Team Moon Raccoon
 
