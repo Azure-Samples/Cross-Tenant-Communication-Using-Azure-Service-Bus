@@ -1,9 +1,0 @@
-{
-  "profiles": {
-    "CustomerFunctions": {
-      "commandName": "Project",
-      "commandLineArgs": "--port 7169",
-      "launchBrowser": false
-    }
-  }
-}
