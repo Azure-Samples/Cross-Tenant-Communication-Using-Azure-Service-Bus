@@ -32,7 +32,7 @@ So, the Provider needs to authenticate using an identity the Customer will recog
 
 ### Non-viable Solutions
 
-1. Provider deploys (per-Customer) an Azure Function with a Service Bus trigger using its multi-tenanted service principal to bind to a response queue in the Customer's Service Bus to listen for messages. This would be ideal, and is an optimization over the first viable solution listed above, but it isn't currently possible: https://docs.microsoft.com/en-us/dotnet/api/overview/azure/Microsoft.Azure.WebJobs.Extensions.ServiceBus-readme#managed-identity-authentication
+1. Provider deploys (per-Customer) an Azure Function with a Service Bus trigger using its multi-tenanted service principal to bind to a response queue in the Customer's Service Bus to listen for messages. This would be ideal, and is an optimization over the first viable solution listed above, but it isn't currently possible: https://learn.microsoft.com/dotnet/api/overview/azure/Microsoft.Azure.WebJobs.Extensions.ServiceBus-readme#managed-identity-authentication
 
 ## Provider Setup
 
@@ -47,14 +47,14 @@ We first need to create a Service Principal in the Provider's tenant and provisi
 1. Navigate to Azure AD click "New Registration".
 1. Enter the name for the service principal and choose "Accounts in any organization (Any Azure AD directory - Multitenant)".
 1. Add - Web - "https://microsoft.com" as the redirect URI.
-1. Register and take note of the application id as well as the client id.
+1. Register and take note of the application (client) ID value.
 
 ### Create a New Client Secret
 
 1. Once you have created a Multi-Tenant application above navigate to "Clients&Secrets".
 1. Create a new client secret by choosing "New Client Secret".
 1. Enter secret details and generate the secret.
-1. Save the generated secret in a safe location. This combined with the client id is your client credentials that will be required to exchange the code, in authorization code flow, for an id Token in the next step.
+1. Save the generated secret in a safe location. This combined with the client ID is your client credentials that will be required to exchange the code, in authorization code flow, for an ID Token in the next step.
 
 ### Azure Function - HTTP Triggered
 
@@ -74,7 +74,7 @@ This timer triggered function is used to poll the deployment status queue from w
 
 ### Provision the SP from the Provider's Tenant to the Customer's Tenant
 
-1. Visit the following URL with the client_id query string parameter replaced with your own client_id: https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=8ae2f824-201f-4ec9-9d9f-ad37082a1935&response_type=code&redirect_uri=https%3A%2F%2Fmicrosoft.com&response_mode=query&scope=https%3A%2F%2Fgraph.microsoft.com%2F.default&state=12345
+1. Visit the following URL with the client_id query string parameter replaced with your own client ID: `https://login.microsoftonline.com/organizations/oauth2/v2.0/authorize?response_type=code&response_mode=query&scope=openid&client_id=your_client_ID`
 1. Sign in with an account from the Customer's tenant.
 1. You will now see a consent screen. Click Accept to provision the Provider's application in the Customer tenant. *Note this will eventually redirect to microsoft.com -- this still has the desired effect of provisioning the identity into the Customer tenant*.
 1. Verify the identity within the Customer's Azure AD by navigating to "Enterprise Applications" to witness the newly provisioned service principal.
@@ -92,7 +92,7 @@ Scope the Provider SP (from Provider Service Principal Setup above) to have "Ser
 
 ### Azure Function - Service Bus Trigger
 
-Generate an Azure Function from a Service Bus queue trigger from the following documentation was followed to define the function trigger from the service bus. [Identity Based Functions Tutorial](https://docs.microsoft.com/en-us/azure/azure-functions/functions-identity-based-connections-tutorial-2) This documentation also showcases how to setup a managed identity used for the azure function to get triggered from the service bus when a message has been added to the queue and we will continue to use that managed identity when putting a message into a different queue (for demo purposes, the same function was used to push the message through).
+Generate an Azure Function from a Service Bus queue trigger from the following documentation was followed to define the function trigger from the service bus. [Identity Based Functions Tutorial](https://learn.microsoft.com/azure/azure-functions/functions-identity-based-connections-tutorial-2) This documentation also showcases how to setup a managed identity used for the azure function to get triggered from the service bus when a message has been added to the queue and we will continue to use that managed identity when putting a message into a different queue (for demo purposes, the same function was used to push the message through).
 In your service bus namespace that you just created, select Access Control (IAM). This is where you can view and configure who has access to the resource.
 
 #### Grant the Function App Access to the Service Bus Namespace using Managed Identities
