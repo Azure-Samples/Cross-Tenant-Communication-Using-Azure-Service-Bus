@@ -46,7 +46,7 @@ We first need to create a Service Principal in the Provider's tenant and provisi
 
 1. Navigate to Azure AD click "New Registration".
 1. Enter the name for the service principal and choose "Accounts in any organization (Any Azure AD directory - Multitenant)".
-1. Add - Web - "https://microsoft.com" as the redirect URI.
+1. Add - Web - "https://entra.microsoft.com" as the redirect URI.
 1. Register and take note of the application (client) ID value.
 
 ### Create a New Client Secret
