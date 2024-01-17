@@ -9,6 +9,10 @@ This implementation matches the use case demonstrated in the image below. The co
 
 ![PoC Infrastructure](https://github.com/Azure-Samples/Cross-Tenant-Communication-Using-Azure-Service-Bus/blob/main/Docs/arch.png)
 
+## ❤️ Feedback
+
+We appreciate your feedback and energy helping us improve our services. [If you've tried the service, please give us feedback through this survey](https://microsoft.qualtrics.com/jfe/form/SV_9WTOR2ItSo0oFee). 
+
 ## The Problem
 
 A Provider has multiple Customers. The Provider and each Customer need a secure, bidirectional method of communication. Messages must be exchanged through Azure Service Bus queues from Provider to Customer and vice versa. The solution should have a compelling identity story that avoids introducing unnecessary credentials or secrets.
