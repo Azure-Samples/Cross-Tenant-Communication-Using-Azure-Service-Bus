@@ -1,7 +1,7 @@
 
 # Cross-Tenant Communication using Azure Service Bus
 
-Created by: Audrey Long, Ashton Mickey, and John Garland from the CSE Security Solution Area
+Created by: Audrey Long, Ashton Mickey, and John Garland from the ISE Security Tech Domain
 
 This PoC contains a sample solution for handling cross-tenant communication between a Provider and one or more of its Customers using Service Bus message queues. The problem is of a multi-tenanted nature: the Provider needs to communicate securely with each of its Customers, and each Customer needs to communicate securely with the Provider.
 This implementation matches the use case demonstrated in the image below. The code has been segmented to represent a Customer's infrastructure within a Customer tenant, as well as a Provider's infrastructure within a Provider tenant.
