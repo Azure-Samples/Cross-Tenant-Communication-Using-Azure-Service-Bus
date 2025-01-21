@@ -1,6 +1,10 @@
 
 # Cross-Tenant Communication using Azure Service Bus
 
+**IMPORTANT: As of January 2025, this content has been archived and is no longer actively maintained. Entra ID recently introduced functionality that enables you to architect solutions where applications can communicate across tenant boundaries without ever needing to create or manage any credentials. To learn more, please see the blog post "[Effortlessly access cloud resources across Azure tenants without using secrets](https://devblogs.microsoft.com/identity/access-cloud-resources-across-tenants-without-secrets/)".**
+
+# Archived Content
+
 Created by: Audrey Long, Ashton Mickey, and John Garland from the ISE Security Tech Domain
 
 This PoC contains a sample solution for handling cross-tenant communication between a Provider and one or more of its Customers using Service Bus message queues. The problem is of a multi-tenanted nature: the Provider needs to communicate securely with each of its Customers, and each Customer needs to communicate securely with the Provider.
